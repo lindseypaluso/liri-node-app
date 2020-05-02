@@ -14,7 +14,9 @@ How To Use:
 2. Navigate to the folder where LIRI is stored on your computer.
 3. Type in "node liri.js (command) (movie, song name, or artist)"
 
-// insert image screenshot here
+Some examples:<br>
+<img src="parasite.png">
+<img src="biking.png">
 
 // insert video demo here 
 
