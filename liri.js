@@ -52,7 +52,7 @@ var spotifyThis = function () {
         var album = data.tracks.items[0].album.name;
 
         console.log("Artist: " + artist +
-        "\nSong: " + songName +
+            "\nSong: " + songName +
             "\nAlbum: " + album +
             "\nLink: " + previewLink)
     });
@@ -61,11 +61,11 @@ var spotifyThis = function () {
 
 var movieThis = function () {
 
-    if (movie === "") {
-        movie = "Mr. Nobody";
+    if (userInput === "") {
+        userInput = "Mr. Nobody";
     };
 
-    // If the user doesn't type a movie in, the program will output data for the movie 'Mr. Nobody.'
+    // If the user doesn't type a movie in, the program will output data for the movie'Mr. Nobody.'
 
     var queryURL = "http://www.omdbapi.com/?t=" + userInput + "&apikey=trilogy";
 
@@ -90,20 +90,40 @@ var movieThis = function () {
     });
 };
 
-switch (command) {
-    case "concert-this":
-        concertThis();
-        break;
-    case "spotify":
-        spotifyThis();
-        break;
-    case "movie-this":
-        movieThis();
-        break;
-    case "do-what-it-says":
-        // code block for do what it says
-        break;
-    default:
-        console.log("not a valid input")
+var doThis = function () {
+    // Using the fs Node package, LIRI will take the text inside of random.txt and then use it to call one of LIRI's commands.
+    // It should run spotify-this-song for "I Want it That Way," as follows the text in random.txt.  
+    // Edit the text in random.txt to test out the feature for movie-this and concert-this.
+    fs.readFile("./random.txt", "utf8", function (err, data) {
+        // save the data from the readfile as variables so that we can call the correct function
+        var dataArr = data.split(",")
+        command = dataArr[0];
+        userInput = dataArr[1];
+                // run our switch case based on the data in the random.txt file
+        determineTask();
+    })
 
-}
+};
+
+var determineTask = function () {
+
+    switch (command) {
+        case "concert":
+            concertThis();
+            break;
+        case "spotify":
+            spotifyThis();
+            break;
+        case "movie":
+            movieThis();
+            break;
+        case "do-this":
+            doThis();
+            break;
+        default:
+            console.log("not a valid input")
+
+    }
+};
+
+determineTask();
